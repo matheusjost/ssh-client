@@ -15,9 +15,9 @@ class SSH():
         try:
             stdin,stdout,stderr = self.ssh.exec_command(cmd)
             if stderr.channel.recv_exit_status() != 0:
-                return "CAIU NO ERRO", stderr.read().decode('ascii')
+                return stderr.read().decode('ascii')
             else:
-                return "CAIU NO OUTPUT", stdout.read().decode('ascii').strip("\n")
+                return stdout.read().decode('ascii').strip("\n")
         except paramiko.AuthenticationException:
             return f'Não foi possível se autenticar no host {self.ip}'
         except paramiko.SSHException:
